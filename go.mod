@@ -1,4 +1,4 @@
-module cropjob-operator
+module cronjob-operator
 
 go 1.20
 

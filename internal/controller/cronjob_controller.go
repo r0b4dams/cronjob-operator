@@ -32,7 +32,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log"
 
-	batchv1 "cropjob-operator/api/v1"
+	batchv1 "cronjob-operator/api/v1"
 )
 
 // CronJobReconciler reconciles a CronJob object

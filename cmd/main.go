@@ -32,8 +32,8 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
 
-	batchv1 "cropjob-operator/api/v1"
-	"cropjob-operator/internal/controller"
+	batchv1 "cronjob-operator/api/v1"
+	"cronjob-operator/internal/controller"
 	//+kubebuilder:scaffold:imports
 )
 
