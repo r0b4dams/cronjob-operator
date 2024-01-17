@@ -94,6 +94,7 @@ type CronJobStatus struct {
 	Active []corev1.ObjectReference `json:"active,omitempty"`
 
 	// Information when was the last time the job was successfully scheduled.
+	// we use metav1.Time instead of time.Time to get the stable serialization
 	// +optional
 	LastScheduleTime *metav1.Time `json:"lastScheduleTime,omitempty"`
 }
