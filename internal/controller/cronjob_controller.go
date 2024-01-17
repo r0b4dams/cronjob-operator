@@ -376,7 +376,6 @@ func (r *CronJobReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 	}
 	if tooLate {
 		log.V(1).Info("missed starting deadline for last run, sleeping till next")
-		// TODO(directxman12): events
 		return scheduledResult, nil
 	}
 
@@ -461,7 +460,16 @@ func (r *CronJobReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 
 	log.V(1).Info("created Job for CronJob run", "job", job)
 
-	return ctrl.Result{}, nil
+	/*
+		### 7: Requeue when we either see a running job or it's time for the next scheduled run
+
+		Finally, we'll return the result that we prepped above, that says we want to requeue
+		when our next run would need to occur.  This is taken as a maximum deadline -- if something
+		else changes in between, like our job starts or finishes, we get modified, etc, we might
+		reconcile again sooner.
+	*/
+	// we'll requeue once we see the running job, and update our status
+	return scheduledResult, nil
 }
 
 // SetupWithManager sets up the controller with the Manager.
