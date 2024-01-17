@@ -17,13 +17,29 @@ limitations under the License.
 package v1
 
 import (
-	// batchv1 "k8s.io/api/batch/v1"
+	batchv1 "k8s.io/api/batch/v1"
 	// corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
+// ConcurrencyPolicy describes how the job will be handled.
+// Only one of the following concurrent policies may be specified.
+// If none of the following policies is specified, the default one
+// is AllowConcurrent.
+// +kubebuilder:validation:Enum=Allow;Forbid;Replace
+type ConcurrencyPolicy string
+
+const (
+	// AllowConcurrent allows CronJobs to run concurrently.
+	AllowConcurrent ConcurrencyPolicy = "Allow"
+
+	// ForbidConcurrent forbids concurrent runs, skipping next run if previous
+	// hasn't finished yet.
+	ForbidConcurrent ConcurrencyPolicy = "Forbid"
+
+	// ReplaceConcurrent cancels currently running job and replaces it with a new one.
+	ReplaceConcurrent ConcurrencyPolicy = "Replace"
+)
 
 // CronJobSpec defines the desired state of CronJob
 type CronJobSpec struct {
