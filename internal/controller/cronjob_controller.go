@@ -258,6 +258,18 @@ func (r *CronJobReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 		}
 	}
 
+	/* ### 4: Check if we're suspended
+
+	If this object is suspended, we don't want to run any jobs, so we'll stop now.
+	This is useful if something's broken with the job we're running and we want to
+	pause runs to investigate or putz with the cluster, without deleting the object.
+	*/
+
+	if cronJob.Spec.Suspend != nil && *cronJob.Spec.Suspend {
+		log.V(1).Info("cronjob suspended, skipping")
+		return ctrl.Result{}, nil
+	}
+
 	return ctrl.Result{}, nil
 }
 
