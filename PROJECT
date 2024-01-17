@@ -7,4 +7,14 @@ layout:
 - go.kubebuilder.io/v4
 projectName: cronjob-operator
 repo: cropjob-operator
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: example.io
+  group: batch
+  kind: CronJob
+  path: cropjob-operator/api/v1
+  version: v1
 version: "3"
