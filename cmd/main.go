@@ -103,8 +103,7 @@ func main() {
 		the webhooks separately, or not run them when testing our controller
 		locally, we'll put them behind an environment variable.
 	*/
-	if os.Getenv("ENABLE_WEBHOOKS") == "true" {
-		setupLog.Info("webhooks enabled")
+	if os.Getenv("ENABLE_WEBHOOKS") != "false" {
 		if err = (&batchv1.CronJob{}).SetupWebhookWithManager(mgr); err != nil {
 			setupLog.Error(err, "unable to create webhook", "webhook", "CronJob")
 			os.Exit(1)
